@@ -1,0 +1,16 @@
+{
+  "name": "web3-login",
+  "version": "1.0.0",
+  "description": "MUI React component for web3 wallet connection",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web3",
+    "wallet",
+    "react",
+    "mui"
+  ],
+  "author": "clementc",
+  "license": "ISC"
+}
