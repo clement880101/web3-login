@@ -10,7 +10,7 @@ and MUI — it talks to `window.ethereum` directly.
 ## Install
 
 ```bash
-npm install web3-login
+npm install @clement.chang.dev/web3-login
 ```
 
 React, MUI and Emotion are peer dependencies — the package uses whichever copy
@@ -23,7 +23,7 @@ npm install react react-dom @mui/material @emotion/react @emotion/styled
 ## Usage
 
 ```jsx
-import { Web3Button } from 'web3-login';
+import { Web3Button } from '@clement.chang.dev/web3-login';
 
 <Web3Button chainId={1} onConnect={(address) => console.log(address)} />;
 ```
@@ -59,7 +59,7 @@ Any other prop is forwarded to the underlying MUI `Button`.
 `useWallet` holds all the logic; the button is a thin consumer of it.
 
 ```jsx
-import { useWallet } from 'web3-login';
+import { useWallet } from '@clement.chang.dev/web3-login';
 
 function Account() {
   const { address, chainId, status, error, connect, disconnect, switchChain } =

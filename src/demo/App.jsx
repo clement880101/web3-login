@@ -24,7 +24,7 @@ const theme = createTheme({
   },
 });
 
-const USAGE = `import { Web3Button, useWallet } from 'web3-login'
+const USAGE = `import { Web3Button, useWallet } from '@clement.chang.dev/web3-login'
 
 // Drop-in button
 <Web3Button chainId={1} onConnect={(address) => console.log(address)} />

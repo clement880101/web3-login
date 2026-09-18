@@ -1,5 +1,5 @@
 {
-  "name": "web3-login",
+  "name": "@clement.chang.dev/web3-login",
   "version": "1.0.0",
   "description": "MUI React component for web3 wallet connection",
   "keywords": [
@@ -31,6 +31,9 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=22.12.0"
   },
