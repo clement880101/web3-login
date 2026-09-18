@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 /**
  * A stand-in for an injected EIP-1193 provider (`window.ethereum`).
  *
@@ -15,7 +17,7 @@ export function createMockProvider({
   const provider = {
     calls: [],
 
-    request: jest.fn(async ({ method, params }) => {
+    request: vi.fn(async ({ method, params }) => {
       provider.calls.push({ method, params });
 
       if (handlers[method]) {
@@ -33,12 +35,12 @@ export function createMockProvider({
       }
     }),
 
-    on: jest.fn((event, handler) => {
+    on: vi.fn((event, handler) => {
       listeners[event] = listeners[event] || [];
       listeners[event].push(handler);
     }),
 
-    removeListener: jest.fn((event, handler) => {
+    removeListener: vi.fn((event, handler) => {
       listeners[event] = (listeners[event] || []).filter((h) => h !== handler);
     }),
 

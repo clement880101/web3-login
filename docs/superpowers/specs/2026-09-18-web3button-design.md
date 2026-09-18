@@ -231,3 +231,36 @@ This is interactive and cannot be performed on their behalf.
 - The ten `useWallet` cases pass.
 - The deployed page loads with correct asset paths and a clean console.
 - CI runs green on the pull request.
+
+---
+
+## Addendum — dependency upgrade and packaging
+
+Added after the original design, at the user's request, superseding the "out of
+scope" list above.
+
+All 73 `npm audit` findings traced to a single direct dependency,
+`react-scripts`, which has no fixed release. Clearing them therefore required
+replacing the build tooling rather than bumping a version:
+
+- React 18.2 → 19.3, MUI 5.10 → 9.4, Testing Library 14 → 16.
+- `react-scripts` → Vite 8; Jest → Vitest 5. `npm audit` now reports 0
+  vulnerabilities and `node_modules` fell from 1434 packages to 179.
+- JSX-bearing modules renamed to `.jsx`, `index.html` moved to the project root,
+  and the CRA `homepage` field replaced by Vite's `base` for the Pages path.
+
+Packaging, so the library is installable:
+
+- `private: true` removed — it would have blocked `npm publish` outright.
+- A library build (`vite.lib.config.js`) emits `dist/index.js` (ESM) and
+  `dist/index.cjs`, resolving the entry points `package.json` had always
+  advertised but never produced.
+- React, MUI and Emotion moved from `dependencies` to `peerDependencies`;
+  bundling them would hand a consumer a second React (breaking hooks) and a
+  second Emotion cache (breaking theming).
+- Verified by packing the tarball and installing it into a clean app: both entry
+  points resolve, all seven exports are present, and only one copy of React is
+  installed.
+
+Still outstanding: the project has no linter. CRA provided one via
+`eslint-config-react-app`, which left with `react-scripts`.

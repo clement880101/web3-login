@@ -7,6 +7,19 @@ and MUI — it talks to `window.ethereum` directly.
 
 **[Live demo →](https://clement880101.github.io/web3-login)**
 
+## Install
+
+```bash
+npm install web3-login
+```
+
+React, MUI and Emotion are peer dependencies — the package uses whichever copy
+your app already has, rather than bundling its own:
+
+```bash
+npm install react react-dom @mui/material @emotion/react @emotion/styled
+```
+
 ## Usage
 
 ```jsx
@@ -110,13 +123,25 @@ wallets keep the site authorized, and a later `connect()` will not re-prompt.
 
 ```bash
 npm install
-npm start     # demo at http://localhost:3000
-npm test
-npm run build
+npm run dev        # demo at http://localhost:3000
+npm test           # vitest
+npm run build      # demo site -> build/
+npm run build:lib  # library -> dist/
 ```
 
-`src/lib` is the package. `src/demo` is the landing page deployed to GitHub
-Pages on every push to `main`.
+`src/lib` is the published package; `src/demo` is the landing page deployed to
+GitHub Pages on every push to `main`. Built with Vite and Vitest, on React 19
+and MUI 9.
+
+### Publishing
+
+`prepublishOnly` runs the tests and a fresh library build, so a release is:
+
+```bash
+npm version patch   # or minor / major
+npm publish
+git push --follow-tags
+```
 
 ## Licence
 

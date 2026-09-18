@@ -137,8 +137,8 @@ export default function App() {
             directly.
           </Typography>
           <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
-            <Chip size="small" label="React 18" variant="outlined" />
-            <Chip size="small" label="MUI 5" variant="outlined" />
+            <Chip size="small" label="React 19" variant="outlined" />
+            <Chip size="small" label="MUI 9" variant="outlined" />
             <Chip size="small" label="Zero runtime deps" variant="outlined" />
           </Stack>
         </Stack>
