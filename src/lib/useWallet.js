@@ -239,7 +239,7 @@ export default function useWallet(options = {}) {
           method: 'wallet_revokePermissions',
           params: [{ eth_accounts: {} }],
         });
-      } catch (revokeError) {
+      } catch {
         // Expected on wallets without permission revocation. Not an error the
         // user can act on, so it is deliberately not surfaced.
       }

@@ -1,0 +1,41 @@
+name: Feature request
+description: Suggest a change to the API or behaviour.
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This package has no runtime dependencies and a deliberately small API.
+        A feature that fits your app may still not belong here — that is what
+        `useWallet` and `className` are for.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you are trying to do, and where the current API stops you.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What the API would look like. Show the call site.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried instead
+      description: >-
+        Whether `useWallet` with your own UI, or `className` with your own CSS,
+        covers it — and if not, why.
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Compatibility
+      options:
+        - label: This would change or remove something already public.

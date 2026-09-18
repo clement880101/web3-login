@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage help
+    url: https://github.com/clement880101/web3-login#readme
+    about: The README covers props, theming, and using the hook on its own.
+  - name: Security vulnerability
+    url: https://github.com/clement880101/web3-login/security/advisories/new
+    about: Report privately. Do not open a public issue.

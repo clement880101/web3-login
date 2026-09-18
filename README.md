@@ -1,5 +1,11 @@
 # web3-login
 
+[![CI](https://github.com/clement880101/web3-login/actions/workflows/ci.yml/badge.svg)](https://github.com/clement880101/web3-login/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@clement.chang.dev/web3-login?logo=npm)](https://www.npmjs.com/package/@clement.chang.dev/web3-login)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/@clement.chang.dev/web3-login)](https://bundlephobia.com/package/@clement.chang.dev/web3-login)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://www.npmjs.com/package/@clement.chang.dev/web3-login?activeTab=dependencies)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 A React button for connecting an EIP-1193 browser wallet.
 
 No web3 library, no UI framework, no stylesheet to import. React is the only
@@ -164,8 +170,18 @@ npm run build      # demo site -> build/
 npm run build:lib  # library -> dist/
 ```
 
+```bash
+npm run lint       # eslint
+npm run format     # prettier --write
+npm run verify     # lint + format check + tests, the same as CI
+```
+
 `src/lib` is the published package; `src/demo` is the landing page deployed to
 GitHub Pages on every push to `main`. Built with Vite and Vitest.
+
+[CONTRIBUTING.md](CONTRIBUTING.md) has the rest: layout, checks, and what
+counts as a public API change. Contributors are expected to follow the
+[code of conduct](CODE_OF_CONDUCT.md).
 
 ### Releasing
 
@@ -174,13 +190,24 @@ stored in this repository, and `--provenance` attaches a signed link from the
 published package back to the commit it was built from.
 
 ```bash
+# 1. Move the Unreleased section of CHANGELOG.md under the new version.
 npm version patch          # or minor / major — commits and tags
 git push --follow-tags
 gh release create v2.0.1 --generate-notes
 ```
 
-Publishing the release runs `.github/workflows/publish.yml`, which tests,
-builds, checks the tag matches `package.json`, and publishes.
+Publishing the release runs [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
+which verifies, builds, checks the tag matches `package.json`, and publishes.
+Released versions carry provenance — `npm audit signatures` verifies it.
+
+## Security
+
+Report vulnerabilities privately. See [SECURITY.md](SECURITY.md); please do not
+open a public issue.
+
+## Changelog
+
+[CHANGELOG.md](CHANGELOG.md).
 
 ## Licence
 
