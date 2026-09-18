@@ -23,7 +23,10 @@ describe('rendering by status', () => {
     render(<Web3Button wallet={wallet({ status: 'unsupported' })} />);
 
     const link = screen.getByRole('link', { name: /install metamask/i });
-    expect(link).toHaveAttribute('href', expect.stringContaining('metamask.io'));
+    expect(link).toHaveAttribute(
+      'href',
+      expect.stringContaining('metamask.io')
+    );
     expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
   });
 
@@ -67,7 +70,9 @@ describe('rendering by status', () => {
 
   test('surfaces an error message', () => {
     render(
-      <Web3Button wallet={wallet({ error: 'Request rejected in your wallet.' })} />
+      <Web3Button
+        wallet={wallet({ error: 'Request rejected in your wallet.' })}
+      />
     );
 
     expect(screen.getByRole('alert')).toHaveTextContent(/rejected/i);
@@ -92,7 +97,9 @@ describe('connected menu', () => {
     fireEvent.click(screen.getByRole('button'));
 
     await waitFor(() =>
-      expect(screen.getByRole('menuitem', { name: /copy address/i })).toBeVisible()
+      expect(
+        screen.getByRole('menuitem', { name: /copy address/i })
+      ).toBeVisible()
     );
     expect(
       screen.getByRole('menuitem', { name: /view on explorer/i })
@@ -106,7 +113,9 @@ describe('connected menu', () => {
     fireEvent.click(screen.getByRole('button'));
 
     await waitFor(() =>
-      expect(screen.getByRole('menuitem', { name: /disconnect/i })).toBeVisible()
+      expect(
+        screen.getByRole('menuitem', { name: /disconnect/i })
+      ).toBeVisible()
     );
     expect(
       screen.queryByRole('menuitem', { name: /view on explorer/i })
@@ -118,7 +127,9 @@ describe('connected menu', () => {
 
     fireEvent.click(screen.getByRole('button'));
     await waitFor(() =>
-      expect(screen.getByRole('menuitem', { name: /disconnect/i })).toBeVisible()
+      expect(
+        screen.getByRole('menuitem', { name: /disconnect/i })
+      ).toBeVisible()
     );
     fireEvent.click(screen.getByRole('menuitem', { name: /disconnect/i }));
 
@@ -130,10 +141,14 @@ describe('connected menu', () => {
 
     fireEvent.click(screen.getByRole('button'));
     await waitFor(() =>
-      expect(screen.getByRole('menuitem', { name: /disconnect/i })).toBeVisible()
+      expect(
+        screen.getByRole('menuitem', { name: /disconnect/i })
+      ).toBeVisible()
     );
 
-    fireEvent.keyDown(document.activeElement || document.body, { key: 'Escape' });
+    fireEvent.keyDown(document.activeElement || document.body, {
+      key: 'Escape',
+    });
 
     await waitFor(() =>
       expect(

@@ -19,14 +19,17 @@
   --muted: #9aa3b2;
   --accent: #7c8cff;
 
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  --font:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -44,7 +47,9 @@ body {
 }
 
 @media (min-width: 48em) {
-  .wrap { padding: 5rem 1.5rem; }
+  .wrap {
+    padding: 5rem 1.5rem;
+  }
 }
 
 h1 {
@@ -88,7 +93,9 @@ code {
   padding: 0.2rem 0.7rem;
 }
 
-section { margin-top: 3.5rem; }
+section {
+  margin-top: 3.5rem;
+}
 
 .panel {
   background: var(--surface);
@@ -98,7 +105,9 @@ section { margin-top: 3.5rem; }
 }
 
 @media (min-width: 48em) {
-  .panel { padding: 2rem; }
+  .panel {
+    padding: 2rem;
+  }
 }
 
 .hint {
@@ -148,11 +157,26 @@ section { margin-top: 3.5rem; }
   padding: 0.15rem 0.6rem;
 }
 
-.pill[data-status='connected']   { background: #14532d; color: #86efac; }
-.pill[data-status='wrong-chain'] { background: #713f12; color: #fde68a; }
-.pill[data-status='connecting']  { background: #1e3a5f; color: #93c5fd; }
-.pill[data-status='unsupported'] { background: #7f1d1d; color: #fca5a5; }
-.pill[data-status='disconnected']{ background: #262c38; color: var(--muted); }
+.pill[data-status='connected'] {
+  background: #14532d;
+  color: #86efac;
+}
+.pill[data-status='wrong-chain'] {
+  background: #713f12;
+  color: #fde68a;
+}
+.pill[data-status='connecting'] {
+  background: #1e3a5f;
+  color: #93c5fd;
+}
+.pill[data-status='unsupported'] {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+.pill[data-status='disconnected'] {
+  background: #262c38;
+  color: var(--muted);
+}
 
 pre {
   margin: 0;
@@ -165,12 +189,21 @@ pre {
   line-height: 1.7;
 }
 
-pre + p { margin-top: 1.25rem; }
+pre + p {
+  margin-top: 1.25rem;
+}
 
-.note { color: var(--muted); font-size: 0.9375rem; }
+.note {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
 
-a { color: var(--accent); }
-a:hover { text-decoration: none; }
+a {
+  color: var(--accent);
+}
+a:hover {
+  text-decoration: none;
+}
 
 footer {
   margin-top: 3.5rem;

@@ -18,5 +18,19 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.js',
+    coverage: {
+      provider: 'v8',
+      // Only the published library is held to a threshold; the demo page is
+      // exercised by hand and by the Pages build.
+      include: ['src/lib/**/*.{js,jsx}'],
+      exclude: ['src/lib/__tests__/**', 'src/lib/testUtils/**'],
+      reporter: ['text', 'lcov'],
+      thresholds: {
+        lines: 80,
+        functions: 85,
+        branches: 70,
+        statements: 80,
+      },
+    },
   },
 });

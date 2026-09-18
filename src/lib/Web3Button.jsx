@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useInsertionEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useInsertionEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import useWallet from './useWallet';
 import { getChainName, getExplorerAddressUrl } from './chains';
@@ -86,7 +92,7 @@ function WalletButton({ wallet, chainId, className = '', ...buttonProps }) {
     close(true);
     try {
       await copyText(address);
-    } catch (copyError) {
+    } catch {
       // Copying is a convenience; a failure here is not worth interrupting for.
     }
   };

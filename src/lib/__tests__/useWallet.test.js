@@ -18,7 +18,9 @@ afterEach(() => {
 /** Render the hook and wait for the mount-time session restore to settle. */
 async function renderSettled(options) {
   const view = renderHook(() => useWallet(options));
-  await waitFor(() => expect(view.result.current.status).not.toBe('connecting'));
+  await waitFor(() =>
+    expect(view.result.current.status).not.toBe('connecting')
+  );
   return view;
 }
 
@@ -48,7 +50,9 @@ describe('provider detection', () => {
     expect(result.current.status).toBe('unsupported');
 
     await act(async () => {
-      installProvider(createMockProvider({ accounts: [ACCOUNT], chainId: '0x1' }));
+      installProvider(
+        createMockProvider({ accounts: [ACCOUNT], chainId: '0x1' })
+      );
       window.dispatchEvent(new Event('ethereum#initialized'));
     });
 
