@@ -24,6 +24,10 @@ const theme = createTheme({
   },
 });
 
+const INSTALL = `npm install @clement.chang.dev/web3-login`;
+
+const PEERS = `npm install react react-dom @mui/material @emotion/react @emotion/styled`;
+
 const USAGE = `import { Web3Button, useWallet } from '@clement.chang.dev/web3-login'
 
 // Drop-in button
@@ -176,6 +180,21 @@ export default function App() {
 
         <Box sx={{ mt: 6 }}>
           <Typography variant="h6" gutterBottom>
+            Install
+          </Typography>
+          <Code>{INSTALL}</Code>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            React, MUI and Emotion are peer dependencies — the package uses
+            whichever copies your app already has, rather than bundling its own.
+            If you are starting fresh:
+          </Typography>
+          <Box sx={{ mt: 2 }}>
+            <Code>{PEERS}</Code>
+          </Box>
+        </Box>
+
+        <Box sx={{ mt: 6 }}>
+          <Typography variant="h6" gutterBottom>
             Usage
           </Typography>
           <Code>{USAGE}</Code>
@@ -203,6 +222,22 @@ export default function App() {
             rel="noopener noreferrer"
           >
             Source on GitHub
+          </Link>{' '}
+          ·{' '}
+          <Link
+            href="https://www.npmjs.com/package/@clement.chang.dev/web3-login"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            npm
+          </Link>{' '}
+          ·{' '}
+          <Link
+            href="https://clement880101.github.io/personal-web/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Clement Chang
           </Link>
         </Typography>
       </Container>

@@ -5,7 +5,8 @@ A MUI React button for connecting an EIP-1193 browser wallet.
 No web3 library, no provider to configure, no runtime dependencies beyond React
 and MUI — it talks to `window.ethereum` directly.
 
-**[Live demo →](https://clement880101.github.io/web3-login)**
+**[Live demo →](https://clement880101.github.io/web3-login)** ·
+**[npm →](https://www.npmjs.com/package/@clement.chang.dev/web3-login)**
 
 ## Install
 
