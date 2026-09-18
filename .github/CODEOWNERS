@@ -1,4 +1,4 @@
-# Every change needs review from the repository owner.
-# Paired with "Require review from Code Owners" on the main branch, this means
-# an approval from anyone else does not satisfy the requirement.
+# Automatically requests review from the repository owner on every pull request.
+# This is a notification, not a gate: main does not require an approving review,
+# so either maintainer can merge once CI passes.
 * @clement880101
