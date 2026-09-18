@@ -1,0 +1,4 @@
+# Every change needs review from the repository owner.
+# Paired with "Require review from Code Owners" on the main branch, this means
+# an approval from anyone else does not satisfy the requirement.
+* @clement880101
