@@ -84,3 +84,27 @@ jobs:
       # needs, before a release does.
       - name: Check package contents
         run: npm pack --dry-run
+
+  # A single stable gate for branch protection to require. The jobs above can
+  # be renamed, split or extended — including the test matrix — without
+  # touching the protection rule, which only ever names this one.
+  verify:
+    name: verify
+    needs: [lint, test, build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      # needs.*.result is 'success', 'failure', 'cancelled' or 'skipped'.
+      # Anything but success everywhere fails the gate; without this the job
+      # would pass on a skipped dependency.
+      - name: Check that every job succeeded
+        if: contains(needs.*.result, 'failure')
+          || contains(needs.*.result, 'cancelled')
+          || contains(needs.*.result, 'skipped')
+        run: |
+          echo "lint=${{ needs.lint.result }}" >&2
+          echo "test=${{ needs.test.result }}" >&2
+          echo "build=${{ needs.build.result }}" >&2
+          exit 1
+
+      - run: echo "All required jobs succeeded."
