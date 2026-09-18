@@ -1,0 +1,48 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels: ['dependencies']
+    commit-message:
+      prefix: 'deps'
+      prefix-development: 'deps(dev)'
+    groups:
+      # One pull request per toolchain rather than one per package: these
+      # move together and are only ever dev dependencies.
+      build-and-test:
+        patterns:
+          - 'vite'
+          - '@vitejs/*'
+          - 'vitest'
+          - '@vitest/*'
+          - 'jsdom'
+      lint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-*'
+          - 'prettier'
+          - 'globals'
+      testing-library:
+        patterns:
+          - '@testing-library/*'
+    ignore:
+      # React is a peer dependency at >=18. The dev copy tracks the latest
+      # major deliberately; bumping it is a decision, not an update.
+      - dependency-name: 'react'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react-dom'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: ['dependencies', 'ci']
+    commit-message:
+      prefix: 'ci'

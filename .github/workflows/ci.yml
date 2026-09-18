@@ -5,23 +5,70 @@ on:
   push:
     branches: [main]
 
+# Read-only by default; no job here needs to write to the repository.
+permissions:
+  contents: read
+
+# A new push supersedes the run in flight for the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  verify:
+  lint:
+    name: Lint and format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
 
-      - name: Test
-        run: npm test
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+  test:
+    name: Test on Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor declared in engines, and current.
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Test with coverage
+        run: npm run test:coverage
         env:
           CI: true
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
 
       - name: Build site
         run: npm run build
@@ -33,5 +80,7 @@ jobs:
         env:
           CI: true
 
+      # Catches a file list that has drifted from what the package actually
+      # needs, before a release does.
       - name: Check package contents
         run: npm pack --dry-run
