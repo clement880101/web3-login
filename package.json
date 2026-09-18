@@ -1,6 +1,6 @@
 {
   "name": "@clement.chang.dev/web3-login",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MUI React component for web3 wallet connection",
   "keywords": [
     "web3",
