@@ -1,0 +1,52 @@
+name: Publish to npm
+
+# Publishes on a GitHub Release. Draft a release with a tag like v1.0.1 whose
+# version matches package.json, and this ships it.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Required for npm trusted publishing: lets the job mint a short-lived OIDC
+  # token instead of holding a long-lived npm token in secrets.
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1; Node 22 ships npm 10.
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
+      - run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Fail if the tag does not match package.json
+        if: github.event_name == 'release'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $pkg" >&2
+            exit 1
+          fi
+
+      # No NODE_AUTH_TOKEN: the OIDC token above authenticates this, and
+      # --provenance attaches a signed link back to this repo and commit.
+      - name: Publish
+        run: npm publish --provenance --access public

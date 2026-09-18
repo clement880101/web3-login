@@ -133,15 +133,25 @@ npm run build:lib  # library -> dist/
 GitHub Pages on every push to `main`. Built with Vite and Vitest, on React 19
 and MUI 9.
 
-### Publishing
+### Releasing
 
-`prepublishOnly` runs the tests and a fresh library build, so a release is:
+Releases publish from CI via npm trusted publishing (OIDC) — no npm token is
+stored in this repository, and `--provenance` attaches a signed link from the
+published package back to the commit it was built from.
 
 ```bash
-npm version patch   # or minor / major
-npm publish
+npm version patch          # or minor / major — commits and tags
 git push --follow-tags
+gh release create v1.0.1 --generate-notes
 ```
+
+Publishing the release runs `.github/workflows/publish.yml`, which tests,
+builds, checks the tag matches `package.json`, and publishes.
+
+One-time setup on npmjs.com, under the package's *Settings → Trusted Publisher*:
+point it at this repository with workflow `publish.yml`. npm only allows this on
+a package that already exists, so the very first version has to be published by
+hand with `npm publish --otp=<code>`.
 
 ## Licence
 
