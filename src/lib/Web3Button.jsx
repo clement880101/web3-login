@@ -157,7 +157,7 @@ function WalletButton({ wallet, chainId, className = '', ...buttonProps }) {
           <button
             type="button"
             ref={triggerRef}
-            className={cls('w3l-btn', 'w3l-btn--outline')}
+            className={cls('w3l-btn', 'w3l-btn--outline', 'w3l-btn--mono')}
             onClick={() => setOpen((v) => !v)}
             aria-haspopup="menu"
             aria-expanded={open}

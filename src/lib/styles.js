@@ -84,10 +84,13 @@ export const CSS = `
   background: transparent;
   color: var(--w3l-fg-resolved);
   border-color: var(--w3l-border-resolved);
+}
+
+/* Only the address wants a monospace face. An EIP-55 checksum also lives in
+   its capitalisation, so its case must never be transformed. */
+.w3l-btn--mono {
   font-family: var(--w3l-mono);
   font-weight: 500;
-  /* An address carries an EIP-55 checksum in its capitalisation; never
-     transform the case of this label. */
   text-transform: none;
 }
 
