@@ -1,32 +1,12 @@
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 import { Web3Button, useWallet, getChainName } from '../lib';
+import './demo.css';
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: { default: '#0b0d12', paper: '#141821' },
-    primary: { main: '#7c8cff' },
-  },
-  shape: { borderRadius: 10 },
-  typography: {
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  },
-});
+/** The chain this demo asks for, shared so button and readout agree. */
+const REQUIRED_CHAIN_ID = 1;
 
-const INSTALL = `npm install @clement.chang.dev/web3-login`;
+const INSTALL = 'npm install @clement.chang.dev/web3-login';
 
-const PEERS = `npm install react react-dom @mui/material @emotion/react @emotion/styled`;
+const PEERS = 'npm install react react-dom';
 
 const USAGE = `import { Web3Button, useWallet } from '@clement.chang.dev/web3-login'
 
@@ -38,210 +18,142 @@ const { address, chainId, status, connect, disconnect } = useWallet({
   chainId: 1,
 })`;
 
-/** The chain this demo asks for, shared so button and readout agree. */
-const REQUIRED_CHAIN_ID = 1;
-
-const STATUS_COLOR = {
-  connected: 'success',
-  'wrong-chain': 'warning',
-  connecting: 'info',
-  unsupported: 'error',
-  disconnected: 'default',
-};
-
-function Code({ children }) {
-  return (
-    <Box
-      component="pre"
-      sx={{
-        m: 0,
-        p: 2,
-        overflowX: 'auto',
-        borderRadius: 2,
-        bgcolor: '#0b0d12',
-        border: '1px solid',
-        borderColor: 'divider',
-        fontSize: 13,
-        lineHeight: 1.7,
-        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-      }}
-    >
-      <code>{children}</code>
-    </Box>
-  );
-}
-
-function Field({ label, value }) {
-  return (
-    <Box>
-      <Typography variant="overline" color="text.secondary">
-        {label}
-      </Typography>
-      <Typography
-        sx={{
-          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-          fontSize: 14,
-          wordBreak: 'break-all',
-        }}
-      >
-        {value}
-      </Typography>
-    </Box>
-  );
-}
-
-/**
- * The live readout exists to prove the hook and the button share one source of
- * truth: switching account or network in the wallet updates both.
- */
-function LiveState({ wallet }) {
-  const { address, chainId, status } = wallet;
-
-  return (
-    <Stack spacing={2}>
-      <Box>
-        <Typography variant="overline" color="text.secondary">
-          Status
-        </Typography>
-        <Box>
-          <Chip
-            size="small"
-            label={status}
-            color={STATUS_COLOR[status] ?? 'default'}
-          />
-        </Box>
-      </Box>
-      <Field label="Address" value={address ?? '—'} />
-      <Field
-        label="Chain"
-        value={chainId == null ? '—' : `${getChainName(chainId)} (${chainId})`}
-      />
-    </Stack>
-  );
-}
+const THEMING = `:root {
+  --w3l-accent: #e11d48;
+  --w3l-radius: 2px;
+  --w3l-surface: #18181b;
+}`;
 
 export default function App() {
   const wallet = useWallet({ chainId: REQUIRED_CHAIN_ID });
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <div className="wrap">
+      <header>
+        <h1>web3-login</h1>
+        <p className="lede">
+          A React button for connecting an EIP-1193 wallet. No web3 library, no
+          UI framework, no provider to configure — it talks to{' '}
+          <code>window.ethereum</code> directly.
+        </p>
+        <ul className="tags">
+          <li className="tag">React 19</li>
+          <li className="tag">Plain CSS</li>
+          <li className="tag">No dependencies</li>
+          <li className="tag">4.8 kB gzipped</li>
+        </ul>
+      </header>
 
-      <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
-        <Stack spacing={1.5}>
-          <Typography variant="h3" component="h1" fontWeight={700}>
-            web3-login
-          </Typography>
-          <Typography variant="h6" color="text.secondary" fontWeight={400}>
-            A MUI React button for connecting an EIP-1193 wallet. No web3
-            libraries, no providers to configure — it talks to{' '}
-            <Box component="code" sx={{ fontFamily: 'monospace' }}>
-              window.ethereum
-            </Box>{' '}
-            directly.
-          </Typography>
-          <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
-            <Chip size="small" label="React 19" variant="outlined" />
-            <Chip size="small" label="MUI 9" variant="outlined" />
-            <Chip size="small" label="Zero runtime deps" variant="outlined" />
-          </Stack>
-        </Stack>
-
-        <Paper
-          variant="outlined"
-          sx={{ mt: 6, p: { xs: 3, md: 4 }, borderRadius: 3 }}
-        >
-          <Typography variant="h6" gutterBottom>
-            Try it
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+      <section>
+        <div className="panel">
+          <h2>Try it</h2>
+          <p className="hint">
             Requires a browser wallet such as MetaMask. Switching account or
             network in the wallet updates the readout without a reload.
-          </Typography>
+          </p>
 
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={4}
-            alignItems={{ xs: 'stretch', sm: 'flex-start' }}
-          >
-            <Box sx={{ minWidth: 200 }}>
+          <div className="demo">
+            <div>
               <Web3Button wallet={wallet} chainId={REQUIRED_CHAIN_ID} />
-            </Box>
-            <Divider
-              flexItem
-              orientation="vertical"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            />
-            <Box sx={{ flex: 1 }}>
-              <LiveState wallet={wallet} />
-            </Box>
-          </Stack>
-        </Paper>
+            </div>
 
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h6" gutterBottom>
-            Install
-          </Typography>
-          <Code>{INSTALL}</Code>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            React, MUI and Emotion are peer dependencies — the package uses
-            whichever copies your app already has, rather than bundling its own.
-            If you are starting fresh:
-          </Typography>
-          <Box sx={{ mt: 2 }}>
-            <Code>{PEERS}</Code>
-          </Box>
-        </Box>
+            <dl className="readout">
+              <div>
+                <dt>Status</dt>
+                <dd>
+                  <span className="pill" data-status={wallet.status}>
+                    {wallet.status}
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt>Address</dt>
+                <dd>{wallet.address ?? '—'}</dd>
+              </div>
+              <div>
+                <dt>Chain</dt>
+                <dd>
+                  {wallet.chainId == null
+                    ? '—'
+                    : `${getChainName(wallet.chainId)} (${wallet.chainId})`}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
 
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h6" gutterBottom>
-            Usage
-          </Typography>
-          <Code>{USAGE}</Code>
-        </Box>
+      <section>
+        <h2>Install</h2>
+        <pre>
+          <code>{INSTALL}</code>
+        </pre>
+        <p className="note">
+          React is the only peer dependency. If you are starting fresh:
+        </p>
+        <pre>
+          <code>{PEERS}</code>
+        </pre>
+      </section>
 
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h6" gutterBottom>
-            Notes
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Passing <code>chainId</code> puts the button into a “Switch
-            network” state whenever the wallet is on a different chain, adding
-            the network first if the wallet does not know it. Disconnect clears
-            local state and revokes the grant where the wallet supports it —
-            EIP-1193 has no portable way to force a wallet to forget a site.
-          </Typography>
-        </Box>
+      <section>
+        <h2>Usage</h2>
+        <pre>
+          <code>{USAGE}</code>
+        </pre>
+      </section>
 
-        <Divider sx={{ mt: 6, mb: 3 }} />
-        <Typography variant="body2" color="text.secondary">
-          MIT licensed ·{' '}
-          <Link
-            href="https://github.com/clement880101/web3-login"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Source on GitHub
-          </Link>{' '}
-          ·{' '}
-          <Link
-            href="https://www.npmjs.com/package/@clement.chang.dev/web3-login"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            npm
-          </Link>{' '}
-          ·{' '}
-          <Link
-            href="https://clement880101.github.io/personal-web/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Clement Chang
-          </Link>
-        </Typography>
-      </Container>
-    </ThemeProvider>
+      <section>
+        <h2>Theming</h2>
+        <p className="note">
+          Styles are plain CSS with custom properties, injected once on mount —
+          there is no stylesheet to import. Override the properties anywhere in
+          your app, or pass <code>className</code> to target the control
+          directly. This page sets them to stay dark regardless of your system
+          setting.
+        </p>
+        <pre>
+          <code>{THEMING}</code>
+        </pre>
+      </section>
+
+      <section>
+        <h2>Notes</h2>
+        <p className="note">
+          Passing <code>chainId</code> puts the button into a “Switch network”
+          state whenever the wallet is on a different chain, adding the network
+          first if the wallet does not know it. Disconnect clears local state
+          and revokes the grant where the wallet supports it — EIP-1193 has no
+          portable way to force a wallet to forget a site.
+        </p>
+      </section>
+
+      <footer>
+        MIT licensed ·{' '}
+        <a
+          href="https://github.com/clement880101/web3-login"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source on GitHub
+        </a>{' '}
+        ·{' '}
+        <a
+          href="https://www.npmjs.com/package/@clement.chang.dev/web3-login"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          npm
+        </a>{' '}
+        ·{' '}
+        <a
+          href="https://clement880101.github.io/personal-web/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Clement Chang
+        </a>
+      </footer>
+    </div>
   );
 }
-

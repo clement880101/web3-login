@@ -1,9 +1,9 @@
 # web3-login
 
-A MUI React button for connecting an EIP-1193 browser wallet.
+A React button for connecting an EIP-1193 browser wallet.
 
-No web3 library, no provider to configure, no runtime dependencies beyond React
-and MUI — it talks to `window.ethereum` directly.
+No web3 library, no UI framework, no stylesheet to import. React is the only
+peer dependency; everything else is plain HTML, CSS and JavaScript.
 
 **[Live demo →](https://clement880101.github.io/web3-login)** ·
 **[npm →](https://www.npmjs.com/package/@clement.chang.dev/web3-login)**
@@ -14,11 +14,8 @@ and MUI — it talks to `window.ethereum` directly.
 npm install @clement.chang.dev/web3-login
 ```
 
-React, MUI and Emotion are peer dependencies — the package uses whichever copy
-your app already has, rather than bundling its own:
-
 ```bash
-npm install react react-dom @mui/material @emotion/react @emotion/styled
+npm install react react-dom
 ```
 
 ## Usage
@@ -41,7 +38,7 @@ branch on:
 | Connected | `0x1234…abcd`, opening a menu |
 
 The connected menu offers copy address, view on explorer, and disconnect.
-Errors appear in a snackbar.
+Errors appear beneath the button in an alert.
 
 ### Props
 
@@ -49,15 +46,41 @@ Errors appear in a snackbar.
 | --- | --- | --- |
 | `wallet` | `object` | An existing `useWallet()` result to render. See below. |
 | `chainId` | `number` | Chain the app requires. Enables the switch-network state. |
+| `className` | `string` | Added to the control element. |
 | `onConnect` | `(address) => void` | Fired on connect. |
 | `onDisconnect` | `() => void` | Fired on disconnect or wallet-side revoke. |
 | `onError` | `(error) => void` | Fired with the raw provider error. |
 
-Any other prop is forwarded to the underlying MUI `Button`.
+Any other prop is forwarded to the underlying `<button>` or `<a>`.
+
+## Theming
+
+Styles are plain CSS, injected once as a single `<style>` element the first
+time a button mounts. There is no stylesheet for you to import and nothing to
+configure. Restyle it by overriding custom properties anywhere in your app:
+
+```css
+:root {
+  --w3l-accent: #e11d48;
+  --w3l-accent-fg: #ffffff;
+  --w3l-fg: #f4f4f5;
+  --w3l-muted: #a1a1aa;
+  --w3l-surface: #18181b;
+  --w3l-border: #3f3f46;
+  --w3l-warning: #f59e0b;
+  --w3l-danger: #ef4444;
+  --w3l-radius: 2px;
+  --w3l-font-family: "Inter", sans-serif;
+}
+```
+
+Light and dark are handled by `prefers-color-scheme`; setting a property
+yourself wins over both. For finer control, pass `className` and target the
+element directly — the internals use `w3l-`-prefixed class names.
 
 ## Bring your own UI
 
-`useWallet` holds all the logic; the button is a thin consumer of it.
+`useWallet` holds all the logic and imports nothing from the UI layer.
 
 ```jsx
 import { useWallet } from '@clement.chang.dev/web3-login';
@@ -120,6 +143,17 @@ cannot force a wallet to forget it. `disconnect()` clears local state and calls
 `wallet_revokePermissions` where the wallet supports it (MetaMask does); other
 wallets keep the site authorized, and a later `connect()` will not re-prompt.
 
+## Upgrading from 1.x
+
+1.x was built on MUI. 2.0 drops it for plain CSS.
+
+- Remove `@mui/material`, `@emotion/react` and `@emotion/styled` if nothing
+  else in your app uses them.
+- MUI `Button` props no longer apply: `variant`, `color`, `size` and `sx` are
+  gone. Use `className` or the custom properties above.
+- Everything else — `useWallet`, the props, the status values, the behaviour —
+  is unchanged.
+
 ## Development
 
 ```bash
@@ -131,8 +165,7 @@ npm run build:lib  # library -> dist/
 ```
 
 `src/lib` is the published package; `src/demo` is the landing page deployed to
-GitHub Pages on every push to `main`. Built with Vite and Vitest, on React 19
-and MUI 9.
+GitHub Pages on every push to `main`. Built with Vite and Vitest.
 
 ### Releasing
 
@@ -143,16 +176,11 @@ published package back to the commit it was built from.
 ```bash
 npm version patch          # or minor / major — commits and tags
 git push --follow-tags
-gh release create v1.0.1 --generate-notes
+gh release create v2.0.1 --generate-notes
 ```
 
 Publishing the release runs `.github/workflows/publish.yml`, which tests,
 builds, checks the tag matches `package.json`, and publishes.
-
-One-time setup on npmjs.com, under the package's *Settings → Trusted Publisher*:
-point it at this repository with workflow `publish.yml`. npm only allows this on
-a package that already exists, so the very first version has to be published by
-hand with `npm publish --otp=<code>`.
 
 ## Licence
 

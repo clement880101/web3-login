@@ -1,0 +1,181 @@
+/*
+ * The landing page is always dark, so it pins the component's custom
+ * properties rather than letting them follow the visitor's OS setting. This
+ * doubles as a demonstration of how the component is themed.
+ */
+:root {
+  --w3l-accent: #7c8cff;
+  --w3l-accent-fg: #0b0d12;
+  --w3l-fg: #e6e8ee;
+  --w3l-muted: #9aa3b2;
+  --w3l-surface: #141821;
+  --w3l-border: #2a3040;
+  --w3l-radius: 10px;
+
+  --bg: #0b0d12;
+  --surface: #141821;
+  --border: #232937;
+  --fg: #e6e8ee;
+  --muted: #9aa3b2;
+  --accent: #7c8cff;
+
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+@media (min-width: 48em) {
+  .wrap { padding: 5rem 1.5rem; }
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.lede {
+  margin: 0.75rem 0 0;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--muted);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+
+section { margin-top: 3.5rem; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+@media (min-width: 48em) {
+  .panel { padding: 2rem; }
+}
+
+.hint {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.demo {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 40em) {
+  .demo {
+    grid-template-columns: minmax(12rem, auto) 1fr;
+    align-items: start;
+  }
+}
+
+.readout {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.readout dt {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.readout dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.pill {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+
+.pill[data-status='connected']   { background: #14532d; color: #86efac; }
+.pill[data-status='wrong-chain'] { background: #713f12; color: #fde68a; }
+.pill[data-status='connecting']  { background: #1e3a5f; color: #93c5fd; }
+.pill[data-status='unsupported'] { background: #7f1d1d; color: #fca5a5; }
+.pill[data-status='disconnected']{ background: #262c38; color: var(--muted); }
+
+pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: #0b0d12;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+pre + p { margin-top: 1.25rem; }
+
+.note { color: var(--muted); font-size: 0.9375rem; }
+
+a { color: var(--accent); }
+a:hover { text-decoration: none; }
+
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.875rem;
+}

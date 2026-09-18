@@ -1,12 +1,14 @@
 {
   "name": "@clement.chang.dev/web3-login",
-  "version": "1.0.1",
-  "description": "MUI React component for web3 wallet connection",
+  "version": "2.0.0",
+  "description": "React button for connecting an EIP-1193 wallet. No dependencies.",
   "keywords": [
     "web3",
     "wallet",
     "react",
-    "mui"
+    "ethereum",
+    "eip-1193",
+    "metamask"
   ],
   "homepage": "https://clement880101.github.io/web3-login",
   "repository": {
@@ -49,15 +51,9 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18",
-    "@mui/material": ">=5",
-    "@emotion/react": ">=11",
-    "@emotion/styled": ">=11"
+    "react-dom": ">=18"
   },
   "devDependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^9.4.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
