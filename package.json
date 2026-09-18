@@ -11,7 +11,7 @@
   "homepage": "https://clement880101.github.io/web3-login",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clement880101/web3-login"
+    "url": "git+https://github.com/clement880101/web3-login.git"
   },
   "license": "MIT",
   "author": "clementc",
