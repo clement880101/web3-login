@@ -1,6 +1,6 @@
 {
-  "short_name": "Web3-login Testing",
-  "name": "Web3-login Testing",
+  "short_name": "web3-login",
+  "name": "web3-login",
   "icons": [
     {
       "src": "favicon.ico",

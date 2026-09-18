@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Web3Button } from './lib'
+import { createRoot } from 'react-dom/client';
 
-ReactDOM.render(
-    <React.StrictMode>
-      <Web3Button />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+import App from './demo/App';
+
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
