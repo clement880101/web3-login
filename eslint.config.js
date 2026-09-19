@@ -41,9 +41,9 @@ export default [
     rules: { 'no-console': 'off' },
   },
 
-  // Build configs are Node modules, not browser code.
+  // Build configs and build-time scripts are Node modules, not browser code.
   {
-    files: ['*.config.js'],
+    files: ['*.config.js', 'scripts/**/*.js'],
     languageOptions: { globals: { ...globals.node } },
   },
 

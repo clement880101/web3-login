@@ -1,3 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+
+# sitemap.xml itself is generated at build time from package.json "homepage".
+# This URL is hand-written, so a test asserts the two still agree:
+# src/__tests__/seo.test.js
+Sitemap: https://clement880101.github.io/web3-login/sitemap.xml
